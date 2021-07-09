@@ -43,27 +43,39 @@ header('Content-Type: application/json');
             $phone = mysqli_real_escape_string($mysqli, $entityBody->reg_phone);
             $address = mysqli_real_escape_string($mysqli, $entityBody->reg_address);
             
+            
+
+            $ad_time=date("Y-m-d H:i:s");
+            
            
     
-                $mysql = "INSERT INTO userinput (email, password, phone,address)
-                VALUES ('$email', '$pass', '$phone','$address')";
+                $mysql = "INSERT INTO user (user_email, user_password ,user_contact, user_address,user_role)
+                VALUES ('$email', '$pass', '$phone','$address' , '1')";
                 
 
                 if ($mysqli->query($mysql) === TRUE) 
                 {
-                $authdata = [
+                echo json_encode([
                     'status'=> 430,
-                    'email' => $email,
-                    'pwd' => $pass,
-                    'email' => $phone,
-                    'address' => $address
-                ];
-                echo json_encode($authdata);
+                    'messege' => "Register Successfull",
+                    "data" => [
+                          
+                    ]
+                    
+                    
+                ]);
                 
-                }
+                
+                
+            }
                 else 
                 {
-                    
+                    $error  = [
+                        "status" => 403,
+                        "message" => "Not Register",
+                        "data" => null
+                    ];
+                        echo json_encode($error);
                 }
             
     }

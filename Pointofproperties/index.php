@@ -46,11 +46,19 @@ header('Content-Type: application/json');
     
     try {
       
-        $sql = "SELECT * FROM userinput WHERE email = '$entityBody->user_name' and password = '$entityBody->user_password' ";
+        $sql = "SELECT * FROM user WHERE user_email = '$entityBody->user_name' and user_password = '$entityBody->user_password' ";
         $result = $pdo->query($sql);
-        
+    // $_SESSION['username'] = $entityBody->user_name;
+  	// $_SESSION['success'] = "You are now logged in";
+  	//  header('location: index.php');
+          
+
+
+       
         if ($row = $result->fetch()) 
         {
+          
+            
             echo json_encode([
                 "status" => 200,
                 "message" => "Login Successful",
@@ -75,8 +83,6 @@ header('Content-Type: application/json');
         catch (PDOException $e) {
         die("ERROR: Could not able to execute $sql. " .$e->getMessage());
          }
-        unset($pdo);
-   
    
 ?>
 
